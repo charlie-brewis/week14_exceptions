@@ -58,7 +58,14 @@ class PosApp:
         addButton.pack(padx=5, pady=5)
 
     def updateBill(self, totalLabel, newWin):
-        newTotal = self.total.get() + self.newItemPrice.get()
+        try:
+            newTotal = self.total.get() + self.newItemPrice.get()
+        except TclError:
+            newTotal = self.total.get()
+            print("Error: Invalid Price. Total not changed.")
+        if newTotal < self.total.get():
+            newTotal = self.total.get()
+            print("Error: Negative values not allowed. Total not changed.")
         # Update the total (this does not update the label)
         self.total.set(newTotal)
         self.newItemPrice.set(0.00)  # Reset the entry box for the new item
@@ -72,3 +79,5 @@ class PosApp:
 def main():
     app = PosApp()
     app.run()
+
+main()
