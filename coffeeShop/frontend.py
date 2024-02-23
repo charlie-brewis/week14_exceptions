@@ -54,7 +54,8 @@ class CoffeeShopApp:
 
         numCustomers = self.coffeeShop.getNumCustomers()
         i = 0
-        while i <= numCustomers:
+        # Fixed error here where <= should have been <
+        while i < numCustomers:
             customer = self.coffeeShop.getCustomerAt(i)
             customerLabel = Label(
                 self.mainFrame,
@@ -71,7 +72,7 @@ class CoffeeShopApp:
             removeCustomerButton = Button(
                 self.mainFrame,
                 text="Remove",
-                command=lambda: self.removeCustomer(i)
+                command=lambda index=i: self.removeCustomer(index)
             )
             removeCustomerButton.grid(
                 row=i+1,
