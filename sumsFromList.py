@@ -1,13 +1,20 @@
 def sumList(numbers, count):
     total = 0
     for i in range(count):
-        total += numbers[i]
+        try:
+            total += numbers[i]
+        except IndexError:
+            print(f"Error: No number found at index {i}")
     return total
 
 
 def getNumber():
-    number = int(input("Enter a number: "))
-    return number
+    while True:
+        try:
+            number = int(input("Enter a number: ")) 
+            return number
+        except ValueError:
+            print("Error: Please enter a valid number.")
 
 
 def main():
@@ -26,8 +33,9 @@ def main():
         print("Or enter a negative number to stop.")
         count = getNumber()
         if count >= 0:
+            # Could maybe do exception handling here instead of within function to prevent print
             total = sumList(numbers, count)
-            print(f"The sum of the first {count} numbers is {total}")
+            print(f"The sum of the first {count} numbers is {total}")     
         else:
             break
 
