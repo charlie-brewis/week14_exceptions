@@ -88,15 +88,20 @@ class Calculator:
         errors = []
         try:
             num1 = self.num1.get()
-        #TODO: specify exception type
-        except:
+        except TclError:
             errors.append("Invalid Number for Num1")
         try:
             num2 = self.num2.get()
-        except:
+        except TclError:
             errors.append("Invalid Number for Num2")
+        try:
+            if num2 == 0:
+                errors.append("Cannot Divide by 0.")
+        except UnboundLocalError:
+            # Catches the case that num2 is not assigned due to an exception in its assignment
+            pass
         if len(errors) == 0:
-            result = num1 / num2
+            result = num1 * num2
             self.result.set(f"Result: {result :.4f} (4 d.p.)")
         else:
             self.result.set(f"Errors: {errors}")
