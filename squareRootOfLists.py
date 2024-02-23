@@ -14,7 +14,11 @@ def sumOfList(numbers, length):
 
 def processList(numbers):
     total = sumOfList(numbers, 5)
-    return sqrt(total)
+    try:
+        return sqrt(total)
+    except ValueError:
+        print(f"Error: Cannot square root {total}")
+        return "UNDEFINED"
 
 
 def main():
