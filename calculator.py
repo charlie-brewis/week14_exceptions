@@ -6,7 +6,7 @@ class Calculator:
     def __init__(self):
         self.win = Tk()
         self.win.title("Calculator")
-        self.win.geometry("200x150")
+        self.win.geometry("400x150")
 
         self.mainFrame = Frame(self.win)
         self.mainFrame.pack()
@@ -57,7 +57,7 @@ class Calculator:
         btnDivide = Button(
             self.mainFrame,
             text="Divide",
-            # command= ...
+            command= self.divide
         )
         btnDivide.pack(side="right")
 
@@ -66,14 +66,40 @@ class Calculator:
             text="Close",
             command=self.win.destroy
         )
-        btnClose.pack(side="center")
+        btnClose.pack()
 
     def multiply(self):
-        num1 = self.num1.get()
-        num2 = self.num2.get()
+        errors = []
+        try:
+            num1 = self.num1.get()
+        except:
+            errors.append("Invalid Number for Num1")
+        try:
+            num2 = self.num2.get()
+        except:
+            errors.append("Invalid Number for Num2")
+        if len(errors) == 0:
+            result = num1 * num2
+            self.result.set(f"Result: {result :.4f} (4 d.p.)")
+        else:
+            self.result.set(f"Errors: {errors}")
 
-        result = num1 * num2
-        self.result.set(f"Result: {result}")
+    def divide(self):
+        errors = []
+        try:
+            num1 = self.num1.get()
+        #TODO: specify exception type
+        except:
+            errors.append("Invalid Number for Num1")
+        try:
+            num2 = self.num2.get()
+        except:
+            errors.append("Invalid Number for Num2")
+        if len(errors) == 0:
+            result = num1 / num2
+            self.result.set(f"Result: {result :.4f} (4 d.p.)")
+        else:
+            self.result.set(f"Errors: {errors}")
 
 
 def main():
